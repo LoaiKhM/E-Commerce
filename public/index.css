@@ -163,7 +163,7 @@ body {
 .product:hover {
     transform: scale(1.05);
 }
-.product2 {
+#product2 {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -177,19 +177,19 @@ body {
     height: 400px;
 }
 
-.product2 img {
+#product2 img {
     width: 88px;
     height: auto;
     height: 90px;
     margin-bottom: 10px;
 }
 
-.product2 h3 {
+#product2 h3 {
     font-size: 18px;
     margin: 20px 0;
 }
 
-.product2 .description {
+#product2 .description {
     font-size: 14px;
     color: #666;
     margin-bottom: 24px;
@@ -197,7 +197,7 @@ body {
     top: 14px;
 }
 
-.product2 .submit {
+#product2 .submit {
     background-color: black;
     border: none;
     border-radius: 5px;
@@ -211,7 +211,7 @@ body {
 }
 
 
-.product2:hover {
+#product2:hover {
     transform: scale(1.05);
 }
 /* Fixed menu styles */
