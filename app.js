@@ -85,7 +85,7 @@ app.post("/register", async (req, res) => {
             return res.render("register.ejs", { errreg: "Email Is Already Existed" });
         }
         const hashedpassword = await bcrypt.hash(password, 10);
-        users.push({ email, password: req.body.password, username ,sold : []});
+        users.push({ email, password: hashedpassword, username ,sold : []});
         console.log(users);
         res.redirect("/login");
     } catch (error) {
@@ -101,7 +101,7 @@ app.post("/login", async (req, res) => {
     if (!user) {
         return res.render("login.ejs", { errlogin: "Invalid Email Or Password" });
     }
-    if (await password == user.password) {
+    if (await bcrypt.compare(password, user.password)) {
         req.session.email = email;
         req.session.username = user.username;
         req.session.isauthed = true;
