@@ -116,9 +116,9 @@ body {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
+    z-index: 4;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 10px;
-    z-index: 4;
     padding: 20px;
     text-align: center;
     cursor: pointer;
@@ -153,7 +153,7 @@ body {
     border-radius: 5px;
     color: #fff;
     position: relative;
-    top: 100px;
+    top: 45px;
     cursor: pointer;
     padding: 10px 20px;
     font-size: 16px;
@@ -171,6 +171,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 10px;
     padding: 20px;
+   
     text-align: center;
     cursor: pointer;
     width: calc(50% - 20px);
@@ -204,7 +205,7 @@ body {
     border-radius: 5px;
     color: #fff;
     position: relative;
-    top: 40px;
+    top: -1px;
     cursor: pointer;
     padding: 10px 20px;
     font-size: 16px;
