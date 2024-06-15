@@ -314,7 +314,7 @@ p.arrange {
         width: calc(100% - 20px);
         top: 335px;
     }
-    .product2 {
+    #product2 {
         position: relative;
         width: calc(100% - 20px);
         top: 335px;
@@ -350,7 +350,7 @@ p.arrange {
         right: 4%;
         top: 52px;
     }
-    .product2{
+    #product2{
         position: relative;
         top: 24em;
     }
