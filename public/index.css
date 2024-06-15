@@ -1,0 +1,357 @@
+/* General styles for the page */
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Fixed bar styles */
+.fixedbar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.menu h1 {
+    margin: 0;
+}
+
+.middlebar {
+    display: flex;
+    align-items: center;
+}
+
+.links {
+    color: #fff;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.links:hover {
+    text-decoration: underline;
+}
+
+.usernamee {
+    margin: 0;
+    font-weight: bold;
+    position: relative;
+    left: 15px;
+}
+
+/* Home section styles */
+.home {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.title {
+    padding-top: 75px;
+}
+
+.products {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    bottom: 28em!important;
+}
+.products2 {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    bottom: 28em!important;
+}
+.thebottom {
+    display: none!important;
+    position: relative;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    width: 100%;
+    margin-top: auto;
+}
+
+.cart {
+    height: 18px;
+    cursor: pointer;
+}
+
+.links1 {
+    padding-right: 100px;
+    text-decoration: none;
+    padding-left: 10px;
+    color: white;
+}
+
+.links1:hover {
+    text-decoration: underline;
+}
+
+.product {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    width: calc(50% - 20px);
+    max-width: 300px;
+    height: 400px;
+}
+
+.product img {
+    width: 88px;
+    height: auto;
+    height: 90px;
+    margin-bottom: 10px;
+}
+
+.product h3 {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.product .description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 24px;
+    position: relative;
+    top: 14px;
+}
+
+.product .submit {
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    position: relative;
+    top: 100px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+
+.product:hover {
+    transform: scale(1.05);
+}
+.product2 {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    width: calc(50% - 20px);
+    max-width: 300px;
+    height: 400px;
+}
+
+.product2 img {
+    width: 88px;
+    height: auto;
+    height: 90px;
+    margin-bottom: 10px;
+}
+
+.product2 h3 {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.product2 .description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 24px;
+    position: relative;
+    top: 14px;
+}
+
+.product2 .submit {
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    position: relative;
+    top: 40px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+
+.product2:hover {
+    transform: scale(1.05);
+}
+/* Fixed menu styles */
+#fixedmenu {
+    position: fixed;
+    display: none;
+    align-items: center;
+    width: 300px;
+    height: 100px; /* Auto height to fit content */
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    top: 45px;
+    right: 14%;
+    justify-content: center;
+    letter-spacing: 1px;
+    z-index: 1000;
+}
+
+#anp {
+    display: flex;
+    font-size: 14px; /* Slightly larger font size */
+    flex-grow: 1;
+    margin: 0px;
+    justify-content:center;
+    align-items: center;
+    font-family: sans-serif;
+    font-size: 18px;
+    
+}
+
+#fixedmenu.visible {
+    display: flex;
+}
+
+#ps.disvis {
+    display: none;
+}
+
+#fixedmenu.edit {
+    justify-content: flex-start;
+    align-items: center; /* Align items to the start */
+    flex-direction: column;
+    width: 325px;
+    height: auto;
+    max-height: 600px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    min-height: 200px;
+}
+
+p.arrange {
+    display: flex;
+    color: black;
+     /* Auto height to fit text */
+    width: 100%; /* Full width */
+    margin: 0;
+    font-weight: 400;
+    font-size: 18px;
+    justify-content:flex-start;
+    align-items: center;
+    padding-left: 25px;
+    margin: 0;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9; /* Light background color */
+    min-height: 45px;
+
+    
+}
+#sub2{
+    top: -24em;
+    position: relative;
+}
+#pfirst.arrange{
+    display: flex;
+    color: black;
+     /* Auto height to fit text */
+    width: 100%; /* Full width */
+    margin: 0;
+    font-weight: 400;
+    font-size: 18px;
+    justify-content:flex-start;
+    align-items: center;
+    padding-left: 25px;
+    margin: 0;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9; /* Light background color */
+    min-height: 45px;
+}
+#orcart{
+    display: none;
+}
+#orcart.visible{
+    display: block;
+    position: relative;
+    right: 5px;
+}
+@media screen and (max-width: 768px) {
+    .product {
+        position: relative;
+        width: calc(100% - 20px);
+        top: 335px;
+    }
+    .product2 {
+        position: relative;
+        width: calc(100% - 20px);
+        top: 335px;
+    }
+
+
+    .links1 {
+        padding-right: 30px;
+        white-space: nowrap;
+    }
+    .title{
+        position: relative;
+        margin-top: 10px;
+    }
+    #sub{
+        
+        margin-bottom: 10em !important
+    }
+    #sub2{
+        margin-bottom: 3em !important;
+        position: relative;
+        top: -80px;
+    }
+    .thebottom {
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+    }
+    .usernamee {
+        left: 15px;
+    }
+    #fixedmenu{        
+        right: 4%;
+        top: 52px;
+    }
+    .product2{
+        position: relative;
+        top: 24em;
+    }
+}
