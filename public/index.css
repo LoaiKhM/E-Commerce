@@ -9,7 +9,9 @@ body {
     padding: 0;
     background-color: #f4f4f4;
 }
-
+#ps{
+    display: flex;
+}
 /* Fixed bar styles */
 .fixedbar {
     background-color: #333;
@@ -83,6 +85,10 @@ body {
     flex-wrap: wrap;
     position: relative;
     bottom: 28em!important;
+}
+#ps{
+    display: block;
+    color: black;
 }
 .thebottom {
     display: none!important;
@@ -212,25 +218,20 @@ body {
     transition: background-color 0.3s;
 }
 
-
+#canbtn{
+    position: relative;
+    left: 10px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    background-color: transparent;
+}
+#canbtn:hover{
+    background-color: rgb(218, 218, 218);
+}
 #product2:hover {
     transform: scale(1.05);
 }
-/* Fixed menu styles */
-#fixedmenu {
-    position: fixed;
-    display: none;
-    align-items: center;
-    width: 300px;
-    height: 100px; /* Auto height to fit content */
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    top: 45px;
-    right: 14%;
-    justify-content: center;
-    letter-spacing: 1px;
-    z-index: 1000;
-}
+
 
 #anp {
     display: flex;
@@ -243,73 +244,62 @@ body {
     font-size: 18px;
     
 }
-
-#fixedmenu.visible {
+#fixedmenu.visible{
     display: flex;
+}
+.visible {
+    display: flex;
+}
+.fixedmenu {
+    position: fixed;
+    display: none;
+    align-items: center;
+    width: 300px;
+    height: 150px;
+    background-color: #fff;
+    box-shadow: 0 0px 2px rgb(0 0 0);
+    top: 45px;
+    border-radius: 4px;
+    right: 14%;
+    justify-content: center;
+    letter-spacing: 1px;
+    z-index: 1000;
+}
+
+.fixedmenu.visible {
+    display: flex; /* عرض القائم الثابت */
 }
 
 #ps.disvis {
     display: none;
 }
 
-#fixedmenu.edit {
-    justify-content: flex-start;
-    align-items: center; /* Align items to the start */
-    flex-direction: column;
-    width: 325px;
-    height: auto;
-    max-height: 600px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    min-height: 200px;
-}
 
-p.arrange {
-    display: flex;
-    color: black;
-     /* Auto height to fit text */
-    width: 100%; /* Full width */
-    margin: 0;
-    font-weight: 400;
-    font-size: 18px;
-    justify-content:flex-start;
-    align-items: center;
-    padding-left: 25px;
-    margin: 0;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9; /* Light background color */
-    min-height: 45px;
-
-    
-}
 #sub2{
     top: -24em;
     position: relative;
 }
-#pfirst.arrange{
-    display: flex;
-    color: black;
-     /* Auto height to fit text */
-    width: 100%; /* Full width */
-    margin: 0;
-    font-weight: 400;
-    font-size: 18px;
-    justify-content:flex-start;
-    align-items: center;
-    padding-left: 25px;
-    margin: 0;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9; /* Light background color */
-    min-height: 45px;
-}
-#orcart{
-    display: none;
-}
-#orcart.visible{
-    display: block;
+#pElement.arrange{
     position: relative;
-    right: 5px;
+    color: black;
+    width: calc(100% - 8px);
+    border-bottom: 1px solid black;
+    padding-left: 8px;
+    padding-bottom: 5px;
+    margin: 0px;
+    margin-bottom: 15px;
+    top: 12px;
 }
+#fixedmenu.edit{
+    flex-direction: column;
+    align-items: start;
+    justify-content: flex-start;
+    font-size: 18px;
+    min-height: 300px;
+    max-height: 500px;
+    overflow: auto;
+}
+
 @media screen and (max-width: 768px) {
     .product {
         position: relative;
