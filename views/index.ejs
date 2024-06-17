@@ -190,7 +190,7 @@
                 var email = document.getElementById('secretemail').innerText
                 var dataWithEmail = "append" + "," + email + "," + dataInfo
                 // alert(dataInfo)
-                alert(dataWithEmail)
+                // alert(dataWithEmail) new
                 $.ajax({
                     url: '/',
                     method: 'POST',
@@ -207,7 +207,7 @@
                 var pElement = $(this).parent();
                 var dataIndex = pElement.attr('data-index');
                 var email = $('#secretemail').text();
-                alert(email + "," + dataIndex)
+                // alert(email + "," + dataIndex) new
                 var fixedmenu = $('#fixedmenu')
                 //check if the elements in the fixedmenu is !=== 1
 
