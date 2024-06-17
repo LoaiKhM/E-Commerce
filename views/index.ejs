@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <p id="secret" style="display:none"><%= typeof secretit !=='undefined' && secretit ? secretit : '' %></p>
-    <p id="secretemail" style="display:none;"><%= typeof emails !== 'undefined' && emails ? emails : '' %></p>
+    <p id="secret" style="display:none"><%= sold %></p>
+    <p id="secretemail" style="display:none;"><%= email && typeof email !=='undefined' ? email : '' %></p>
     <div class="fixedbar">
         <div class="menu">
             <h1>Store</h1>
@@ -27,7 +27,9 @@
                         Been
                         Added</p>
                 </div>
-                <p class="usernamee" id="usernamee"><%= typeof usr !=='undefined' && usr ? usr : 'usr' %></p>
+                <p class="usernamee" id="usernamee">
+                    <%= typeof usr !=='undefined' && usr ? usr : 'usr' %>
+                </p>
             </span>
         </div>
     </div>
@@ -40,55 +42,68 @@
             <div class="product" data-info="Laptop Dell SW1330 4GB RAM Intel I5">
                 <img src="/products/laptop.avif" alt="Laptop 4GB RAM Intel i5" style="width: 120px;">
                 <h3>Dell SW1330 4GB RAM Intel I5</h3>
-                <p class="description">High-performance laptop with 4GB RAM and Intel i5 processor, ideal for everyday use and multitasking.</p>
+                <p class="description">High-performance laptop with 4GB RAM and Intel i5 processor, ideal for everyday
+                    use and multitasking.</p>
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
             <div class="product" data-info="Samsung Galaxy A 71">
                 <img src="/products/phone.jpg" alt="Smartphone 64GB">
                 <h3>Samsung Galaxy A 71</h3>
-                <p class="description">Sleek smartphone with 64GB storage and a high-resolution camera for capturing all your moments.</p>
+                <p class="description">Sleek smartphone with 64GB storage and a high-resolution camera for capturing all
+                    your moments.</p>
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
             <div class="product" data-info="IPhone 15 Pro">
                 <img src="/products/iphone.jpg" alt="IPhone 15 Pro">
                 <h3>IPhone 15 Pro</h3>
-                <p class="description">iPhone 15 Pro with A17 Bionic chip, titanium frame, advanced camera, and enhanced battery life for a seamless user experience.</p>
+                <p class="description">iPhone 15 Pro with A17 Bionic chip, titanium frame, advanced camera, and enhanced
+                    battery life for a seamless user experience.</p>
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
         </div>
         <h3 id="sub2">Accessories</h3>
         <div class="products2">
-            
-            <div  id="product2" class="product" data-info="Keyboard Gaming Low Delay">
+
+            <div id="product2" class="product" data-info="Keyboard Gaming Low Delay">
                 <img src="/products/keyboard.webp" alt="Keyboard Gaming Low Delay" style="width: 120px;">
                 <h3>Keyboard Gaming Low Delay</h3>
-                <p class="description">A good keyboard is durable, responsive, and comfortable to type on. It features tactile keys, customizable backlighting, and ergonomic design. Ideal for typing, gaming, and programming, it enhances efficiency and reduces strain, providing a satisfying and productive typing experience.</p>
+                <p class="description">A good keyboard is durable, responsive, and comfortable to type on. It features
+                    tactile keys, customizable backlighting, and ergonomic design. Ideal for typing, gaming, and
+                    programming, it enhances efficiency and reduces strain, providing a satisfying and productive typing
+                    experience.</p>
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
-            <div id="product2"class="product" data-info="Mouse Gaming High Quality">
+            <div id="product2" class="product" data-info="Mouse Gaming High Quality">
                 <img src="/products/mouse.webp" alt="Mouse Gaming High Quality">
                 <h3>Mouse Gaming High Quality</h3>
-                <p class="description">A good mouse is ergonomic, responsive, and precise. It enhances productivity and gaming with smooth tracking, customizable buttons, and adjustable sensitivity. Comfortable to use for extended periods, it ensures accuracy and speed, making it an essential tool for work and play.</p>
+                <p class="description">A good mouse is ergonomic, responsive, and precise. It enhances productivity and
+                    gaming with smooth tracking, customizable buttons, and adjustable sensitivity. Comfortable to use
+                    for extended periods, it ensures accuracy and speed, making it an essential tool for work and play.
+                </p>
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
             <div id="product2" class="product" data-info="Headphones High Quality">
                 <img src="/products/headphones.webp" alt="Headphones High Quality">
                 <h3>Headphones High Quality</h3>
-                <p class="description">Good headphones offer excellent sound quality, comfortable fit, and noise cancellation. They enhance the listening experience with clear highs, deep bass, and balanced mids. Ideal for music, gaming, and calls, they provide immersive audio and long-lasting comfort for extended use.</p>
+                <p class="description">Good headphones offer excellent sound quality, comfortable fit, and noise
+                    cancellation. They enhance the listening experience with clear highs, deep bass, and balanced mids.
+                    Ideal for music, gaming, and calls, they provide immersive audio and long-lasting comfort for
+                    extended use.</p>
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
         </div>
-        
+
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+
             var div = document.getElementById('fixedmenu');
             var cart = document.getElementById('cart');
 
@@ -100,77 +115,138 @@
             document.addEventListener('click', function (event) {
                 if (!div.contains(event.target) && event.target !== cart) {
                     div.classList.remove('visible');
+
                 }
             });
         });
-
         $(document).ready(function () {
-            var secret = document.getElementById('secret').textContent.split(",");
-            console.log(secret)
-            if (secret[0] !== '') {
-                for (i in secret) {
-                    var orcart = document.createElement('img');
-                    orcart.id = 'orcart';
-                    orcart.src = './orangecart.png';
+            var index = 0
+            // get the update from the server 
+            var dataInfoS = $('#secret').text().split(',')
+            console.log(dataInfoS)
+            // loop on each item in the list of dateinfos
+            if (dataInfoS[0] !== '') {
+                for (i in dataInfoS) {
+                    // create the PElement
+                    var pElement = document.createElement('p');
+                    // create the cancel button
+                    var cancelBtn = document.createElement('button')
+                    cancelBtn.id = 'cancelbtn'
+                    cancelBtn.innerText = 'Cancel'
 
-                    var div = document.getElementById('fixedmenu');
-                    var pfirst = document.createElement('p');
-                    pfirst.id = 'pfirst';
-                    pfirst.appendChild(orcart);
-                    orcart.classList.add('visible');
+                    var fixedmenu = document.getElementById('fixedmenu')
+                    pElement.classList.add('arrange')
+                    fixedmenu.classList.add('edit')
 
-                    var res = document.createTextNode(secret[i]);
-                    pfirst.appendChild(res);
-                    pfirst.classList.add('arrange');
-                    pfirst.focus();
-                    div.append(pfirst);
+                    pElement.id = 'pElement'
+                    //make the date-index info 
+                    pElement.setAttribute('data-index', index)
 
-                    var anp = document.getElementById('ps');
-                    anp.classList.add('disvis');
-                    anp.style.justifyContent = "flex-start";
-                    div.classList.add('edit');
+                    index += 1
+
+                    var text = document.createTextNode(dataInfoS[i])
+                    pElement.appendChild(text)
+                    fixedmenu.appendChild(pElement)
+                    pElement.appendChild(cancelBtn)
+                    var tempP = $('#ps').addClass('disvis')
                 }
             }
+
+
+
+
             $('.submit').click(function (event) {
-                event.preventDefault();
+                event.preventDefault(); // to make the webpage not refreshing when posting
+                // save in the client random access mem 
+                var dataInfo = $(this).closest('.product').data('info')
+                var pElement = document.createElement('p');
+                pElement.id = 'pElement';
 
-                var orcart = document.createElement('img');
-                orcart.id = 'orcart';
-                orcart.src = './orangecart.png';
-                
-                var info =  $(this).closest('.product').data('info') ;
-                var infoemail = document.getElementById('secretemail').textContent
-                infos = infoemail +","+ info
+                //make the date-index info 
+                pElement.setAttribute('data-index', index)
 
-                var div = document.getElementById('fixedmenu');
+                index += 1
 
-                var p = document.createElement('p');
-                var text = document.createTextNode(info);
-                p.appendChild(orcart);
-                p.appendChild(text);
-                p.classList.add('arrange');
 
-                var anp = document.getElementById('ps');
-                anp.classList.add('disvis');
-                orcart.classList.add('visible');
-                anp.style.justifyContent = "flex-start";
-                div.classList.add('edit');
-                div.appendChild(p);
+                pElement.classList.add('arrange');
+                var text = document.createTextNode(dataInfo);
+                pElement.appendChild(text);
+                // to make the cancel button
+                var cancelBtn = document.createElement('button');
+                cancelBtn.id = 'cancelbtn'
+                cancelBtn.innerText = 'Cancel'
+                // to assign the <p> to its div `fixedmenu`
+
+                var fixedmenu = document.getElementById('fixedmenu');
+                fixedmenu.classList.add('edit')
+                fixedmenu.appendChild(pElement);
+                // to assign the button to the <p>
+                pElement.appendChild(cancelBtn);
+                // delete the text node of the none
+                var tempP = $('#ps').addClass('disvis')
+
+
+                // send to server to save it with email sentor!
+                var email = document.getElementById('secretemail').innerText
+                var dataWithEmail = "append" + "," + email + "," + dataInfo
+                // alert(dataInfo)
+                alert(dataWithEmail)
                 $.ajax({
-                    url: "/", // Ensure this URL matches your server's endpoint
-                    method: "POST",
-                    contentType: "text/plain",
-                    data: infos,
+                    url: '/',
+                    method: 'POST',
+                    contentType: 'text/plain',
+                    data: dataWithEmail
+                })
+
+            });
+
+
+            $('#fixedmenu').on('click', '#cancelbtn', function (event) {
+                event.stopPropagation();
+                // remove the parent pElement
+                var pElement = $(this).parent();
+                var dataIndex = pElement.attr('data-index');
+                var email = $('#secretemail').text();
+                alert(email + "," + dataIndex)
+                var fixedmenu = $('#fixedmenu')
+                //check if the elements in the fixedmenu is !=== 1
+
+
+                // send removal request to server
+                
+                $.ajax({
+                    url: '/',
+                    method: 'POST',
+                    contentType: 'text/plain',
+                    data: email + "," + dataIndex,
                     success: function (response) {
-                        
+                        pElement.remove();
+                        // optional: update UI based on server response
+                        alert($('#fixedmenu').children().length)
+                        if ($('#fixedmenu').children().length === 1) {
+                            $('#ps').removeClass('disvis');
+                            $('#fixedmenu').removeClass('edit')
+                        }
                     },
                     error: function (xhr, status, error) {
-                        
+                        console.error('Failed to remove item:', error);
                     }
                 });
+                
+
+                
+            });
+
+
+            $(document).click(function (event) {
+
+                if (!$(event.target).closest('#fixedmenu').length && !$(event.target).is('#cart')) {
+                    $('#fixedmenu').removeClass('visible');
+                }
             });
         });
     </script>
+
 </body>
 
 </html>
