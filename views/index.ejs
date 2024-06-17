@@ -67,7 +67,7 @@
         <h3 id="sub2">Accessories</h3>
         <div class="products2">
 
-            <div id="product2" class="product" data-info="Keyboard Gaming Low Delay">
+            <div id="product2" class="product" data-info="Keyboard Gaming">
                 <img src="/products/keyboard.webp" alt="Keyboard Gaming Low Delay" style="width: 120px;">
                 <h3>Keyboard Gaming Low Delay</h3>
                 <p class="description">A good keyboard is durable, responsive, and comfortable to type on. It features
@@ -77,7 +77,7 @@
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
-            <div id="product2" class="product" data-info="Mouse Gaming High Quality">
+            <div id="product2" class="product" data-info="Mouse Gaming">
                 <img src="/products/mouse.webp" alt="Mouse Gaming High Quality">
                 <h3>Mouse Gaming High Quality</h3>
                 <p class="description">A good mouse is ergonomic, responsive, and precise. It enhances productivity and
@@ -87,7 +87,7 @@
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
-            <div id="product2" class="product" data-info="Headphones High Quality">
+            <div id="product2" class="product" data-info="Headphones Gaming">
                 <img src="/products/headphones.webp" alt="Headphones High Quality">
                 <h3>Headphones High Quality</h3>
                 <p class="description">Good headphones offer excellent sound quality, comfortable fit, and noise
@@ -132,7 +132,7 @@
                     // create the cancel button
                     var cancelBtn = document.createElement('button')
                     cancelBtn.id = 'cancelbtn'
-                    cancelBtn.innerText = 'Cancel'
+                    cancelBtn.innerText = 'Delete'
 
                     var fixedmenu = document.getElementById('fixedmenu')
                     pElement.classList.add('arrange')
@@ -174,7 +174,7 @@
                 // to make the cancel button
                 var cancelBtn = document.createElement('button');
                 cancelBtn.id = 'cancelbtn'
-                cancelBtn.innerText = 'Cancel'
+                cancelBtn.innerText = 'Delete'
                 // to assign the <p> to its div `fixedmenu`
 
                 var fixedmenu = document.getElementById('fixedmenu');
@@ -222,7 +222,7 @@
                     success: function (response) {
                         pElement.remove();
                         // optional: update UI based on server response
-                        alert($('#fixedmenu').children().length)
+                        // alert($('#fixedmenu').children().length) new
                         if ($('#fixedmenu').children().length === 1) {
                             $('#ps').removeClass('disvis');
                             $('#fixedmenu').removeClass('edit')
