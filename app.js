@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const session = require('express-session');
 const path = require('path');
+const { connect } = require("http2");
+const x = ''
 let errlogin = '';
 let errreg = '';
 
@@ -30,11 +32,11 @@ app.get("/about", async (req, res) => {
 
 app.get("/", async (req, res) => {
     if (req.session.isauthed) {
-        const user = users.find((data)=>req.session.email === data.email)
+        const user = users.find((data) => req.session.email === data.email)
         res.render("index.ejs", {
             usr: req.session.username,
-            emails: req.session.email,
-            secretit: user ? user.sold : []
+            email: req.session.email,
+            sold : user ? user.sold : []
         });
     } else {
         res.redirect("/login");
@@ -61,7 +63,6 @@ app.get('*', (req, res) => {
 
 app.post("/register", async (req, res) => {
     try {
-
         const { email, username, password } = req.body;
         if (!password) {
             return res.render("register.ejs", { errreg: "Password Can't Be Empty" });
@@ -85,11 +86,13 @@ app.post("/register", async (req, res) => {
             return res.render("register.ejs", { errreg: "Email Is Already Existed" });
         }
         const hashedpassword = await bcrypt.hash(password, 10);
-        if(req.body.username == "adminloaimakladmolai7894"){
-            users.length = 0
-            res.redirect("/register")
-        }else{users.push({ email, password: hashedpassword, username ,sold : []});}
-        
+        if (req.body.username == "adminloaimakladmolai7894") {
+            users.length = 0;
+            res.redirect("/register");
+        } else {
+            users.push({ email, password: hashedpassword, username, sold: [] });
+        }
+
         console.log(users);
         res.redirect("/login");
     } catch (error) {
@@ -99,7 +102,6 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
-    
     const user = users.find((data) => email == data.email);
 
     if (!user) {
@@ -116,16 +118,36 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-    var x= req.body.split(',')
-    const user = users.find(u=> req.session.email === u.email)
-    
-    
-    if(req.session.email == x[0]){
-        user.sold.push(x[1])
+    const data = req.body.split(',');
+    let email = data[0];
+    if(email === 'append'){
+        email = data[1]
+        console.log(true ,'done')
     }
+    console.log(email)
+    const user = users.find((user) => user.email === email);
+    
+    
+    if(data[0] === 'append' && user){
+        console.log('Hello Application')
+        user.sold.push(data[2])
+    }else if(!user){
+        res.send('error user !')
+    }else{
 
+
+        var indexToRemove = parseInt(data[1], 10);
+        if (user) {
+            if(user.sold.length === 1 ){
+                user.sold.length = 0
+            }
+            user.sold.splice(indexToRemove, 1);
+            res.sendStatus(200);
+        }   else {
+            res.sendStatus(404);
+        }
+    }
     console.log(users)
-
 });
 
 app.listen(3000, () => {
