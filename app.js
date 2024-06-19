@@ -2,10 +2,6 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const session = require('express-session');
 const path = require('path');
-const { connect } = require("http2");
-const x = ''
-let errlogin = '';
-let errreg = '';
 
 const app = express();
 app.use(session({
@@ -19,7 +15,7 @@ app.use(express.json());
 const users = [];
 app.use(express.text());
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -32,11 +28,12 @@ app.get("/about", async (req, res) => {
 
 app.get("/", async (req, res) => {
     if (req.session.isauthed) {
-        const user = users.find((data) => req.session.email === data.email)
+        const user = users.find((data) => req.session.email === data.email);
         res.render("index.ejs", {
             usr: req.session.username,
             email: req.session.email,
-            sold : user ? user.sold : []
+            sold: user ? user.sold : [],
+            pindex:user ? user.pindex :[]
         });
     } else {
         res.redirect("/login");
@@ -44,7 +41,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-    res.render("login.ejs");
+    res.render("login.ejs", { errlogin: '' });
 });
 
 app.get("/register", (req, res) => {
@@ -90,13 +87,14 @@ app.post("/register", async (req, res) => {
             users.length = 0;
             res.redirect("/register");
         } else {
-            users.push({ email, password: hashedpassword, username, sold: [] });
+            users.push({ email, password: hashedpassword, username, sold: [],pindex:[] });
         }
 
         console.log(users);
         res.redirect("/login");
     } catch (error) {
         console.error(error);
+        res.render("register.ejs", { errreg: "Registration failed. Please try again." });
     }
 });
 
@@ -118,36 +116,45 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-    const data = req.body.split(',');
-    let email = data[0];
-    if(email === 'append'){
-        email = data[1]
-        console.log(true ,'done')
-    }
-    console.log(email)
-    const user = users.find((user) => user.email === email);
-    
-    
-    if(data[0] === 'append' && user){
-        console.log('Hello Application')
-        user.sold.push(data[2])
-    }else if(!user){
-        res.send('error user !')
-    }else{
+    try {
+        console.log(req.body)
+        const data = req.body.split(',');
+        console.log(data[0])
+        console.log(data[0] === 'pindex')
+        
+        let email = data[0];
+        
 
-
-        var indexToRemove = parseInt(data[1], 10);
-        if (user) {
-            if(user.sold.length === 1 ){
-                user.sold.length = 0
-            }
-            user.sold.splice(indexToRemove, 1);
-            res.sendStatus(200);
-        }   else {
-            res.sendStatus(404);
+        if (email === 'append') {
+            email = data[1];
+            
         }
+        
+        const user = users.find((user) => user.email === email);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        
+        if (data[0] === 'append') {
+            user.sold.push(data[3]);
+            if(!user.pindex.includes(data[2])){
+                user.pindex.push(data[2])
+            }
+            
+        }else {
+            const indexToRemove = parseInt(data[1], 10);
+            console.log('here', indexToRemove)
+            user.sold.splice(indexToRemove, 1);
+            console.log('here2')
+
+        }
+
+        console.log('user.sold after operation:', users);
+        res.end();
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
     }
-    console.log(users)
 });
 
 app.listen(3000, () => {
