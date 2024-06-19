@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <p id='secretadd' style="display: none;"><%=pindex%></p>
     <p id="secret" style="display:none"><%= sold %></p>
     <p id="secretemail" style="display:none;"><%= email && typeof email !=='undefined' ? email : '' %></p>
     <div class="fixedbar">
@@ -27,9 +28,7 @@
                         Been
                         Added</p>
                 </div>
-                <p class="usernamee" id="usernamee">
-                    <%= typeof usr !=='undefined' && usr ? usr : 'usr' %>
-                </p>
+                <p class="usernamee" id="usernamee"><%= typeof usr !=='undefined' && usr ? usr : 'usr' %></p>
             </span>
         </div>
     </div>
@@ -39,7 +38,7 @@
         position: relative;
         top: 70px;" id="sub">Technology</h3>
         <div class="products">
-            <div class="product" data-info="Laptop Dell SW1330 4GB RAM Intel I5">
+            <div class="product" data-info="Laptop Dell SW1330 4GB RAM Intel I5" data-pindex="1">
                 <img src="/products/laptop.avif" alt="Laptop 4GB RAM Intel i5" style="width: 120px;">
                 <h3>Dell SW1330 4GB RAM Intel I5</h3>
                 <p class="description">High-performance laptop with 4GB RAM and Intel i5 processor, ideal for everyday
@@ -47,7 +46,7 @@
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
-            <div class="product" data-info="Samsung Galaxy A 71">
+            <div class="product" data-info="Samsung Galaxy A 71"  data-pindex="2">
                 <img src="/products/phone.jpg" alt="Smartphone 64GB">
                 <h3>Samsung Galaxy A 71</h3>
                 <p class="description">Sleek smartphone with 64GB storage and a high-resolution camera for capturing all
@@ -55,7 +54,7 @@
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
-            <div class="product" data-info="IPhone 15 Pro">
+            <div class="product" data-info="IPhone 15 Pro" data-pindex="3">
                 <img src="/products/iphone.jpg" alt="IPhone 15 Pro">
                 <h3>IPhone 15 Pro</h3>
                 <p class="description">iPhone 15 Pro with A17 Bionic chip, titanium frame, advanced camera, and enhanced
@@ -67,7 +66,7 @@
         <h3 id="sub2">Accessories</h3>
         <div class="products2">
 
-            <div id="product2" class="product" data-info="Keyboard Gaming">
+            <div id="product2" class="product" data-info="Keyboard Gaming"data-pindex="4">
                 <img src="/products/keyboard.webp" alt="Keyboard Gaming Low Delay" style="width: 120px;">
                 <h3>Keyboard Gaming Low Delay</h3>
                 <p class="description">A good keyboard is durable, responsive, and comfortable to type on. It features
@@ -77,7 +76,7 @@
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
-            <div id="product2" class="product" data-info="Mouse Gaming">
+            <div id="product2" class="product" data-info="Mouse Gaming"data-pindex="5">
                 <img src="/products/mouse.webp" alt="Mouse Gaming High Quality">
                 <h3>Mouse Gaming High Quality</h3>
                 <p class="description">A good mouse is ergonomic, responsive, and precise. It enhances productivity and
@@ -87,7 +86,7 @@
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
-            <div id="product2" class="product" data-info="Headphones Gaming">
+            <div id="product2" class="product" data-info="Headphones Gaming"data-pindex="6">
                 <img src="/products/headphones.webp" alt="Headphones High Quality">
                 <h3>Headphones High Quality</h3>
                 <p class="description">Good headphones offer excellent sound quality, comfortable fit, and noise
@@ -121,6 +120,17 @@
         });
         $(document).ready(function () {
             var index = 0
+            // make the client get to the server and get the pindex from it and do an action to show the plus in the screen of the product div
+            var pindex = $('#secretadd').text().split(',');
+            
+            $('.product').each(function(){
+                console.log(pindex.indexOf($(this).data('pindex'))); // Check if product index is in the pindex array
+                if(pindex.indexOf($(this).data('pindex').toString()) >= 0){
+                    $(this).children('.submit').text("+");
+                }
+            });
+            // `client-only` check if the index info still exist in the fixedmenu if  : will done not : del the not exists 
+            
             // get the update from the server 
             var dataInfoS = $('#secret').text().split(',')
             console.log(dataInfoS)
@@ -149,6 +159,7 @@
                     fixedmenu.appendChild(pElement)
                     pElement.appendChild(cancelBtn)
                     var tempP = $('#ps').addClass('disvis')
+                    
                 }
             }
 
@@ -157,8 +168,14 @@
 
             $('.submit').click(function (event) {
                 event.preventDefault(); // to make the webpage not refreshing when posting
+                
+                //make the button be plus only when get clicked : 
+                $(this).text('+')
+                var pindex =$(this).parent().data('pindex')
+
                 // save in the client random access mem 
                 var dataInfo = $(this).closest('.product').data('info')
+    
                 var pElement = document.createElement('p');
                 pElement.id = 'pElement';
 
@@ -167,7 +184,7 @@
 
                 index += 1
 
-
+                
                 pElement.classList.add('arrange');
                 var text = document.createTextNode(dataInfo);
                 pElement.appendChild(text);
@@ -176,6 +193,7 @@
                 cancelBtn.id = 'cancelbtn'
                 cancelBtn.innerText = 'Delete'
                 // to assign the <p> to its div `fixedmenu`
+                
 
                 var fixedmenu = document.getElementById('fixedmenu');
                 fixedmenu.classList.add('edit')
@@ -188,54 +206,77 @@
 
                 // send to server to save it with email sentor!
                 var email = document.getElementById('secretemail').innerText
-                var dataWithEmail = "append" + "," + email + "," + dataInfo
+                var dataWithEmail = "append" + "," + email +","+ pindex + "," + dataInfo
                 // alert(dataInfo)
                 // alert(dataWithEmail) new
                 $.ajax({
                     url: '/',
                     method: 'POST',
-                    contentType: 'text/plain',
-                    data: dataWithEmail
-                })
-
-            });
-
-
-            $('#fixedmenu').on('click', '#cancelbtn', function (event) {
-                event.stopPropagation();
-                // remove the parent pElement
-                var pElement = $(this).parent();
-                var dataIndex = pElement.attr('data-index');
-                var email = $('#secretemail').text();
-                // alert(email + "," + dataIndex) new
-                var fixedmenu = $('#fixedmenu')
-                //check if the elements in the fixedmenu is !=== 1
-
-
-                // send removal request to server
-                
-                $.ajax({
-                    url: '/',
-                    method: 'POST',
-                    contentType: 'text/plain',
-                    data: email + "," + dataIndex,
+                    contentType:'text/plain',
+                    data: dataWithEmail,  // Ensure data format matches server expectations
                     success: function (response) {
-                        pElement.remove();
-                        // optional: update UI based on server response
-                        // alert($('#fixedmenu').children().length) new
-                        if ($('#fixedmenu').children().length === 1) {
-                            $('#ps').removeClass('disvis');
-                            $('#fixedmenu').removeClass('edit')
-                        }
+                        console.log('Operation successful:', response);
+                        // Optionally update UI based on server response
                     },
                     error: function (xhr, status, error) {
-                        console.error('Failed to remove item:', error);
+                        console.error('Failed operation:', error);
+                        // Handle error and show user appropriate message
                     }
                 });
-                
 
-                
+
             });
+
+
+                $('#fixedmenu').on('click', '#cancelbtn', function (event) {
+                    event.stopPropagation();
+
+                    var pElement = $(this).parent();
+                    var dataIndex = pElement.attr('data-index');
+                    var email = $('#secretemail').text();
+                    var datainfoindex = $(this).closest('#pElement').data('index') // the fixed menu data index of the clicked button cancel
+                    $('#fixedmenu').children('[data-index]').each(function() {
+                        console.log('hello')
+                        var getindex = parseInt($(this).attr('data-index'),10) //parse the int of every fixed menu data index
+                        console.log(getindex)
+                        if($(this).data('index') > datainfoindex){
+                           console.log($(this).data('index') , datainfoindex)
+                            $(this).attr('data-index',getindex-1)
+                            console.log(getindex)
+                            console.log(typeof $(this).data('index'),typeof datainfoindex,typeof getindex)
+                            if($(this).attr('data-index').indexOf('-') >= 0){
+                               $(this).remove()
+                            }
+                            
+                        }
+                        index = getindex
+                        
+});
+                    
+                    $.ajax({
+                        url: '/',
+                        method: 'POST',
+                        contentType: 'text/plain',
+                        data: email + "," + dataIndex,
+                        success: function (response) {
+                            pElement.remove();
+                            console.log('Removed item successfully');
+                            if ($('#fixedmenu').children().length === 1) {
+                                $('#ps').removeClass('disvis');
+                                $('#fixedmenu').removeClass('edit');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Failed to remove item:', error);
+                            pElement.remove();
+                            console.log('Removed item successfully');
+                            if ($('#fixedmenu').children().length === 1) {
+                                $('#ps').removeClass('disvis');
+                                $('#fixedmenu').removeClass('edit');
+                            }
+                        }
+                    });
+                });
 
 
             $(document).click(function (event) {
