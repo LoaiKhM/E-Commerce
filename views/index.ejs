@@ -180,7 +180,7 @@
                 if(text === ''){
                     collect.text(pindex)
                 }else if(!text.split(',').includes(pindex.toString())){
-                    alert('oh yah')
+                    // alert('oh yah')
                     var sum = collect.text()+','
                     collect.text((sum+pindex))
                 }
@@ -309,7 +309,7 @@
                                     
                                     splitsec.splice(splitsec.indexOf(intdata.toString()),1)
                                     splitsec.join()
-                                    alert(value)
+                                    // alert(value)
                                     secretadd.text(splitsec)
                                     shouldRemoved.push(parseInt(value,10))
                                     var pindex = $('#secretadd').text().split(',');
