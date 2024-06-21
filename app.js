@@ -125,10 +125,11 @@ app.post("/", async (req, res) => {
         
         
             for(shouldRemoved1 in shouldRemoved){
-                console.log(shouldRemoved[shouldRemoved1])
+                console.log(shouldRemoved[shouldRemoved1]) 
                 var DATAINT= parseInt(shouldRemoved[shouldRemoved1],10)
                 console.log(DATAINT)
-                if(shouldRemoved.includes(DATAINT)){
+
+                if(shouldRemoved.includes(DATAINT) && user.pindex.indexOf(DATAINT) >= 0){
                     
                    
                     var getE = user.pindex.indexOf(DATAINT)
