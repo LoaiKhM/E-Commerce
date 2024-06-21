@@ -23,6 +23,7 @@
                 <a href="/about" class="links">About</a>
 
                 <img src="./cart.ico" class="cart" id="cart">
+                <p class="fixednum" id='fixednum'>1</p>
                 <div class="fixedmenu" id="fixedmenu"><p style="color: black; font-size:12px;font-weight: 100; text-align: center;" id="ps">No Thing Have Been Added</p></div>
                 <p class="usernamee" id="usernamee"><%= typeof usr !=='undefined' && usr ? usr : 'usr' %></p>
             </span>
@@ -116,7 +117,8 @@
         });
         $(document).ready(function () {
             var index = 0
-            
+            // update the red element when refreshing the page
+
             //server part for removing the plus
 
             // make the client get to the server and get the pindex from it and do an action to show the plus in the screen of the product div
@@ -162,7 +164,13 @@
                 }
             }
 
-
+            var jfixedmenu = $('#fixedmenu')
+            var redEle = $('#fixednum')
+            
+            if(jfixedmenu.children().length>1){
+                redEle.addClass('visible')
+                redEle.text((jfixedmenu.children().length)-1)
+            }
 
             var localclient = []
             $('.submit').click(function (event) {
@@ -213,7 +221,12 @@
                 pElement.appendChild(cancelBtn);
                 // delete the text node of the none
                 var tempP = $('#ps').addClass('disvis')
-
+                var jfixedmenu = $('#fixedmenu')
+                var redEle = $('#fixednum')
+                if(jfixedmenu.children().length>1){
+                    redEle.addClass('visible')
+                    redEle.text((jfixedmenu.children().length)-1)
+                }
 
                 // send to server to save it with email sentor!
                 var email = document.getElementById('secretemail').innerText
@@ -249,6 +262,15 @@
             $('#fixedmenu').on('click', '#cancelbtn', function (event) {
                 event.stopPropagation();
                 // to get the clicked remove button text name !
+                var jfixedmenu = $('#fixedmenu')
+                var redEle = $('#fixednum')
+                
+                // we make it two because the latency 
+                if(jfixedmenu.children().length === 2){
+                    redEle.removeClass('visible')
+                }else{
+                    redEle.text((jfixedmenu.children().length)-2)
+                }
                 var clickone = $(this).parent().text().replace('Delete',1)
 
                 // the rest of the removing elements 
