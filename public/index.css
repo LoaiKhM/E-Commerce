@@ -6,9 +6,8 @@ html, body {
     display: none;
     color:white;
     background-color: red;
-    position: fixed;
-    right: 60px;
-    top:3px;
+    
+
 }
 #fixednum.visible{
     display: block;
@@ -323,9 +322,6 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-    #fixednum{
-        right:80px;
-    }
     .product {
         position: relative;
         width: calc(100% - 20px);
