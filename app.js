@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const session = require('express-session');
 const path = require('path');
+const { Console } = require("console");
 
 const app = express();
 app.use(session({
@@ -117,40 +118,35 @@ app.post("/login", async (req, res) => {
 
 app.post("/", async (req, res) => {
     try {
-        console.log(req.body)
-        const data = req.body.split(',');
-        console.log(data[0])
-        console.log(data[0] === 'pindex')
-        
-        let email = data[0];
-        
-
-        if (email === 'append') {
-            email = data[1];
-            
-        }
-        
+        const {email,dataIndex,text,pindex,dataInfo,shouldRemoved} = req.body;
+        var INT_DATA = parseInt(dataIndex,10)
+        console.log(email,dataIndex,text,pindex,dataInfo,shouldRemoved)
         const user = users.find((user) => user.email === email);
-        if (!user) {
-            return res.status(404).send('User not found');
-        }
         
-        if (data[0] === 'append') {
-            user.sold.push(data[3]);
-            if(!user.pindex.includes(data[2])){
-                user.pindex.push(data[2])
+        
+            for(shouldRemoved1 in shouldRemoved){
+                console.log(shouldRemoved[shouldRemoved1])
+                var DATAINT= parseInt(shouldRemoved[shouldRemoved1],10)
+                console.log(DATAINT)
+                if(shouldRemoved.includes(DATAINT)){
+                    
+                   
+                    var getE = user.pindex.indexOf(DATAINT)
+                    console.log(getE)
+                    user.pindex.splice(getE,1)
+                }
             }
-            
-        }else {
-            const indexToRemove = parseInt(data[1], 10);
-            console.log('here', indexToRemove)
-            user.sold.splice(indexToRemove, 1);
-            console.log('here2')
-
+        
+        if(text === 'append'){
+            user.sold.push(dataInfo)
+            if(!user.pindex.includes(pindex)){
+                user.pindex.push(pindex)
+            }
+        }else if(text === null){
+            user.sold.splice(INT_DATA,1)
         }
-
-        console.log('user.sold after operation:', users);
-        res.end();
+        console.log(users)
+        res.end()
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error');
