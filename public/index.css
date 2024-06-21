@@ -323,6 +323,9 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    #fixednum{
+        right:80px;
+    }
     .product {
         position: relative;
         width: calc(100% - 20px);
