@@ -2,7 +2,17 @@
 html, body {
     height: 100%;
 }
-
+#fixednum{
+    display: none;
+    color:white;
+    background-color: red;
+    position: fixed;
+    right: 60px;
+    top:3px;
+}
+#fixednum.visible{
+    display: block;
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
