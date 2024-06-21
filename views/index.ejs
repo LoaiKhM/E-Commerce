@@ -125,7 +125,7 @@
             $('.product').each(function () {
 
                 if (pindex.indexOf($(this).data('pindex').toString()) >= 0) {
-                    $(this).children('.submit').text("+");
+                    $(this).children('.submit').text("Add Another One +");
                 }
             });
             // `client-only` check if the index info still exist in the fixedmenu if  : will done not : del the not exists 
@@ -173,7 +173,7 @@
             
 
                 //make the button be plus only when get clicked : 
-                $(this).text('+')
+                $(this).text('Add Another One +')
                 var pindex = $(this).parent().data('pindex')
                 console.log(collect.text().split(','))
                 var text= collect.text()
@@ -245,7 +245,7 @@
 
             });
 
-
+            
             $('#fixedmenu').on('click', '#cancelbtn', function (event) {
                 event.stopPropagation();
                 // to get the clicked remove button text name !
@@ -255,7 +255,9 @@
                 var pElement = $(this).parent();
                 var dataIndex = pElement.attr('data-index');
                 var email = $('#secretemail').text();
-                var datainfoindex = $(this).closest('#pElement').data('index') // the fixed menu data index of the clicked button cancel
+                var datainfoindex = $(this).closest('#pElement').data('index')
+                 
+                // the fixed menu data index of the clicked button cancel
                 $('#fixedmenu').children('[data-index]').each(function () {
                     console.log('hello')
                     var getindex = parseInt($(this).attr('data-index'), 10) //parse the int of every fixed menu data index
@@ -285,26 +287,43 @@
                         var filterthebefore = getAlltext.split('Delete')
                         
                         console.log(filterthebefore)
-                        var shouldRemoved = []
                         
+                        var shouldRemoved = []
                        
                         $.each(allpindexsaved , function(index,value){
+                            
                         // to get every text of every saved pindex in the server and sent to the client
                             var pindextopinfo=$('[data-pindex='+value+']').data('info')
                             console.log(pindextopinfo,filterthebefore)
                            
 
                             if(filterthebefore.indexOf(pindextopinfo)<0){
+                                
                                 var secretadd = $('#secretadd')
                                 var splitsec = secretadd.text().split(',')
                                 console.log(splitsec)
                                 var  intdata = parseInt(value,10)
-                                splitsec.splice(splitsec.indexOf(intdata),1)
+                                console.log('intdata',intdata)
+                                console.log(splitsec.indexOf(intdata) ,intdata , splitsec)
+                                if(splitsec.indexOf(intdata.toString())>=0){
+                                    
+                                    splitsec.splice(splitsec.indexOf(intdata.toString()),1)
+                                    splitsec.join()
+                                    alert(value)
+                                    secretadd.text(splitsec)
+                                    shouldRemoved.push(parseInt(value,10))
+                                    var pindex = $('#secretadd').text().split(',');
+                                    $('.product').each(function () {
+
+                                        if (pindex.indexOf($(this).data('pindex').toString())< 0) {
+                                            $(this).children('.submit').text("Add To Cart");
+                                        }
+                                    });
+                                }
                                 
-                                splitsec.join()
-                                secretadd.text(splitsec)
-                                shouldRemoved.push(parseInt(value,10))
-                            }         
+
+                            }
+                       console.log(shouldRemoved)    
                         });
 
                 fetch('/', {
@@ -315,9 +334,11 @@
                     body: JSON.stringify({ email: email, dataIndex: dataIndex, text: null ,shouldRemoved:shouldRemoved})
                 })
 
+
                     
                     
             });
+
                     // to removing the plus when remove all it contains in the removeing up menu !!
 
 
