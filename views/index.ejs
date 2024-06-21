@@ -23,11 +23,7 @@
                 <a href="/about" class="links">About</a>
 
                 <img src="./cart.ico" class="cart" id="cart">
-                <div class="fixedmenu" id="fixedmenu">
-                    <p style="color: black; font-size:12px;font-weight: 100; text-align: center;" id="ps">No Thing Have
-                        Been
-                        Added</p>
-                </div>
+                <div class="fixedmenu" id="fixedmenu"><p style="color: black; font-size:12px;font-weight: 100; text-align: center;" id="ps">No Thing Have Been Added</p></div>
                 <p class="usernamee" id="usernamee"><%= typeof usr !=='undefined' && usr ? usr : 'usr' %></p>
             </span>
         </div>
@@ -46,7 +42,7 @@
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
-            <div class="product" data-info="Samsung Galaxy A 71"  data-pindex="2">
+            <div class="product" data-info="Samsung Galaxy A 71" data-pindex="2">
                 <img src="/products/phone.jpg" alt="Smartphone 64GB">
                 <h3>Samsung Galaxy A 71</h3>
                 <p class="description">Sleek smartphone with 64GB storage and a high-resolution camera for capturing all
@@ -66,7 +62,7 @@
         <h3 id="sub2">Accessories</h3>
         <div class="products2">
 
-            <div id="product2" class="product" data-info="Keyboard Gaming"data-pindex="4">
+            <div id="product2" class="product" data-info="Keyboard Gaming" data-pindex="4">
                 <img src="/products/keyboard.webp" alt="Keyboard Gaming Low Delay" style="width: 120px;">
                 <h3>Keyboard Gaming Low Delay</h3>
                 <p class="description">A good keyboard is durable, responsive, and comfortable to type on. It features
@@ -76,7 +72,7 @@
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
-            <div id="product2" class="product" data-info="Mouse Gaming"data-pindex="5">
+            <div id="product2" class="product" data-info="Mouse Gaming" data-pindex="5">
                 <img src="/products/mouse.webp" alt="Mouse Gaming High Quality">
                 <h3>Mouse Gaming High Quality</h3>
                 <p class="description">A good mouse is ergonomic, responsive, and precise. It enhances productivity and
@@ -86,7 +82,7 @@
                 <p class="price" style="position: relative; top:10px;font-size:30px;letter-spacing:5px;">200$</p>
                 <button class="submit">Add To Cart</button>
             </div>
-            <div id="product2" class="product" data-info="Headphones Gaming"data-pindex="6">
+            <div id="product2" class="product" data-info="Headphones Gaming" data-pindex="6">
                 <img src="/products/headphones.webp" alt="Headphones High Quality">
                 <h3>Headphones High Quality</h3>
                 <p class="description">Good headphones offer excellent sound quality, comfortable fit, and noise
@@ -120,17 +116,20 @@
         });
         $(document).ready(function () {
             var index = 0
+            
+            //server part for removing the plus
+
             // make the client get to the server and get the pindex from it and do an action to show the plus in the screen of the product div
             var pindex = $('#secretadd').text().split(',');
-            
-            $('.product').each(function(){
-                console.log(pindex.indexOf($(this).data('pindex'))); // Check if product index is in the pindex array
-                if(pindex.indexOf($(this).data('pindex').toString()) >= 0){
+
+            $('.product').each(function () {
+
+                if (pindex.indexOf($(this).data('pindex').toString()) >= 0) {
                     $(this).children('.submit').text("+");
                 }
             });
             // `client-only` check if the index info still exist in the fixedmenu if  : will done not : del the not exists 
-            
+
             // get the update from the server 
             var dataInfoS = $('#secret').text().split(',')
             console.log(dataInfoS)
@@ -159,23 +158,35 @@
                     fixedmenu.appendChild(pElement)
                     pElement.appendChild(cancelBtn)
                     var tempP = $('#ps').addClass('disvis')
-                    
+
                 }
             }
 
 
 
-
+            var localclient = []
             $('.submit').click(function (event) {
                 event.preventDefault(); // to make the webpage not refreshing when posting
                 
+                var collect = $('#secretadd')
+            
+            
+
                 //make the button be plus only when get clicked : 
                 $(this).text('+')
-                var pindex =$(this).parent().data('pindex')
-
+                var pindex = $(this).parent().data('pindex')
+                console.log(collect.text().split(','))
+                var text= collect.text()
+                if(text === ''){
+                    collect.text(pindex)
+                }else if(!text.split(',').includes(pindex.toString())){
+                    alert('oh yah')
+                    var sum = collect.text()+','
+                    collect.text((sum+pindex))
+                }
                 // save in the client random access mem 
                 var dataInfo = $(this).closest('.product').data('info')
-    
+
                 var pElement = document.createElement('p');
                 pElement.id = 'pElement';
 
@@ -184,7 +195,7 @@
 
                 index += 1
 
-                
+
                 pElement.classList.add('arrange');
                 var text = document.createTextNode(dataInfo);
                 pElement.appendChild(text);
@@ -193,7 +204,7 @@
                 cancelBtn.id = 'cancelbtn'
                 cancelBtn.innerText = 'Delete'
                 // to assign the <p> to its div `fixedmenu`
-                
+
 
                 var fixedmenu = document.getElementById('fixedmenu');
                 fixedmenu.classList.add('edit')
@@ -206,77 +217,108 @@
 
                 // send to server to save it with email sentor!
                 var email = document.getElementById('secretemail').innerText
-                var dataWithEmail = "append" + "," + email +","+ pindex + "," + dataInfo
+                var dataWithEmail = "append" + "," + email + "," + pindex + "," + dataInfo
+                
+                
+                localclient.indexOf(pindex)<0 ? localclient.push(pindex) :console.log('') 
+                console.log(localclient)
                 // alert(dataInfo)
                 // alert(dataWithEmail) new
-                $.ajax({
-                    url: '/',
+
+
+                fetch('/', {
                     method: 'POST',
-                    contentType:'text/plain',
-                    data: dataWithEmail,  // Ensure data format matches server expectations
-                    success: function (response) {
-                        console.log('Operation successful:', response);
-                        // Optionally update UI based on server response
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
-                    error: function (xhr, status, error) {
+                    body: JSON.stringify({ email: email, text: 'append', pindex: pindex, dataInfo: dataInfo })  // Ensure data format matches server expectations
+                })
+
+                    .then(data => {
+                        console.log('Operation successful:', data);
+                        // Optionally update UI based on server response
+                    })
+                    .catch((error) => {
                         console.error('Failed operation:', error);
                         // Handle error and show user appropriate message
-                    }
-                });
-
+                    });
 
             });
 
 
-                $('#fixedmenu').on('click', '#cancelbtn', function (event) {
-                    event.stopPropagation();
+            $('#fixedmenu').on('click', '#cancelbtn', function (event) {
+                event.stopPropagation();
+                // to get the clicked remove button text name !
+                var clickone = $(this).parent().text().replace('Delete',1)
 
-                    var pElement = $(this).parent();
-                    var dataIndex = pElement.attr('data-index');
-                    var email = $('#secretemail').text();
-                    var datainfoindex = $(this).closest('#pElement').data('index') // the fixed menu data index of the clicked button cancel
-                    $('#fixedmenu').children('[data-index]').each(function() {
-                        console.log('hello')
-                        var getindex = parseInt($(this).attr('data-index'),10) //parse the int of every fixed menu data index
+                // the rest of the removing elements 
+                var pElement = $(this).parent();
+                var dataIndex = pElement.attr('data-index');
+                var email = $('#secretemail').text();
+                var datainfoindex = $(this).closest('#pElement').data('index') // the fixed menu data index of the clicked button cancel
+                $('#fixedmenu').children('[data-index]').each(function () {
+                    console.log('hello')
+                    var getindex = parseInt($(this).attr('data-index'), 10) //parse the int of every fixed menu data index
+                    console.log(getindex)
+                    if ($(this).data('index') > datainfoindex) {
+                        console.log($(this).data('index'), datainfoindex)
+                        $(this).attr('data-index', getindex - 1)
                         console.log(getindex)
-                        if($(this).data('index') > datainfoindex){
-                           console.log($(this).data('index') , datainfoindex)
-                            $(this).attr('data-index',getindex-1)
-                            console.log(getindex)
-                            console.log(typeof $(this).data('index'),typeof datainfoindex,typeof getindex)
-                            if($(this).attr('data-index').indexOf('-') >= 0){
-                               $(this).remove()
-                            }
-                            
+                        console.log(typeof $(this).data('index'), typeof datainfoindex, typeof getindex)
+                        if ($(this).attr('data-index').indexOf('-') >= 0) {
+                            $(this).remove()
                         }
-                        index = getindex
-                        
-});
-                    
-                    $.ajax({
-                        url: '/',
-                        method: 'POST',
-                        contentType: 'text/plain',
-                        data: email + "," + dataIndex,
-                        success: function (response) {
-                            pElement.remove();
-                            console.log('Removed item successfully');
-                            if ($('#fixedmenu').children().length === 1) {
-                                $('#ps').removeClass('disvis');
-                                $('#fixedmenu').removeClass('edit');
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Failed to remove item:', error);
-                            pElement.remove();
-                            console.log('Removed item successfully');
-                            if ($('#fixedmenu').children().length === 1) {
-                                $('#ps').removeClass('disvis');
-                                $('#fixedmenu').removeClass('edit');
-                            }
-                        }
-                    });
+
+                    }
+                    index = getindex
+
+
                 });
+                        pElement.remove();
+                        console.log('Removed item successfully');
+                        if ($('#fixedmenu').children().length === 1) {
+                            $('#ps').removeClass('disvis');
+                            $('#fixedmenu').removeClass('edit');
+                        }
+                        var allpindexsaved = $('#secretadd').text().split(',')
+                        var getAlltext= $('#fixedmenu').text().replace('No Thing Have Been Added','')
+                        var filterthebefore = getAlltext.split('Delete')
+                        
+                        console.log(filterthebefore)
+                        var shouldRemoved = []
+                        
+                       
+                        $.each(allpindexsaved , function(index,value){
+                        // to get every text of every saved pindex in the server and sent to the client
+                            var pindextopinfo=$('[data-pindex='+value+']').data('info')
+                            console.log(pindextopinfo,filterthebefore)
+                           
+
+                            if(filterthebefore.indexOf(pindextopinfo)<0){
+                                var secretadd = $('#secretadd')
+                                var splitsec = secretadd.text().split(',')
+                                console.log(splitsec)
+                                var  intdata = parseInt(value,10)
+                                splitsec.splice(splitsec.indexOf(intdata),1)
+                                
+                                splitsec.join()
+                                secretadd.text(splitsec)
+                                shouldRemoved.push(parseInt(value,10))
+                            }         
+                        });
+
+                fetch('/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email, dataIndex: dataIndex, text: null ,shouldRemoved:shouldRemoved})
+                })
+
+                    
+                    
+            });
+                    // to removing the plus when remove all it contains in the removeing up menu !!
 
 
             $(document).click(function (event) {
